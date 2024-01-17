@@ -4,7 +4,7 @@ const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 
-const io = require('socket.io')(8080, {
+const io = require('socket.io')(process.env.SOCKET_PORT, {
     cors: {
         origin: process.env.CLIENT_URL||'http://localhost:3000',
     }
@@ -20,6 +20,7 @@ const Messages = require('./models/Messages');
 
 
 const app = express();
+const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(function(req, res, next) {
@@ -34,7 +35,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-const port = process.env.PORT || 8000;
 
 
 let users = [];
