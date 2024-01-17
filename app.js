@@ -2,9 +2,11 @@ require('dotenv').config()
 const express = require('express');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const app = express();
+const server = require('http').createServer(app);
 const cors = require('cors');
 
-const io = require('socket.io')(process.env.SOCKET_PORT, {
+const io = require('socket.io')(server, {
     cors: {
         origin: process.env.CLIENT_URL||'http://localhost:3000',
     }
@@ -19,7 +21,6 @@ const Conversations = require('./models/Conversations');
 const Messages = require('./models/Messages');
 
 
-const app = express();
 const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -127,7 +128,7 @@ app.post('/api/login', async (req, res, next) => {
                         userId: user._id,
                         email: user.email
                     }
-                    const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY || 'THIS_IS_A_JWT_SECRET_KEY';
+                    const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
                     jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: 84600 }, async (err, token) => {
                         await Users.updateOne({ _id: user._id }, {
