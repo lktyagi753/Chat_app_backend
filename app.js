@@ -11,8 +11,6 @@ const io = require('socket.io')(server, {
         origin: process.env.CLIENT_URL||'http://localhost:3000',
         methods: ["GET", "POST"],
     },
-    pingInterval: 2000,
-    pingTimeout: 10000,
 });
 
 
