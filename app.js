@@ -8,7 +8,7 @@ const cors = require('cors');
 
 const io = require('socket.io')(server, {
     cors: {
-        origin: process.env.CLIENT_URL||'http://localhost:3000',
+        origin: process.env.CLIENT_URL||'https://65a9862c06a5c3048ba857c7--shimmering-donut-838c09.netlify.app',
         methods: ["GET", "POST"],
     },
 });
@@ -26,7 +26,7 @@ const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(function(req, res, next) {
-    const allowedOrigins = ['http://localhost:3000', 'http://gamebrag.onrender.com', 'https://gamebrag.onrender.com'];
+    const allowedOrigins = ['http://localhost:3000', 'https://65a9862c06a5c3048ba857c7--shimmering-donut-838c09.netlify.app', 'https://gamebrag.onrender.com'];
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
          res.setHeader('Access-Control-Allow-Origin', origin);
