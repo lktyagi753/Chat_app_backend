@@ -9,7 +9,10 @@ const cors = require('cors');
 const io = require('socket.io')(server, {
     cors: {
         origin: process.env.CLIENT_URL||'http://localhost:3000',
-    }
+        methods: ["GET", "POST"],
+    },
+    pingInterval: 2000,
+    pingTimeout: 10000,
 });
 
 
@@ -232,6 +235,6 @@ app.get('/api/users/:userId', async (req, res) => {
     }
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log('listening on port ' + port);
 })
